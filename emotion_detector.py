@@ -170,7 +170,7 @@ def parse_args():
     )
     parser.add_argument(
             "--face_detector",
-            default="haar",
+            default="mtcnn",
             type=str,
             help="face detector to use: haar or nnet (faster) or mtcnn (more precise) [default=mtcnn]",
     )
@@ -200,6 +200,7 @@ def load_model():
     model.cuda()
 
     state = torch.load("./saved/checkpoints/Z_resmasking_dropout1_rot30_2019Nov30_13.32")
+    #state = torch.load("./saved/checkpoints/resmasking_dropout1_rot30_2019Nov17_14.33")
     model.load_state_dict(state["net"])
     model.eval()
 
