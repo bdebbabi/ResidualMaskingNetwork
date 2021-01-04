@@ -2,17 +2,17 @@ import os
 import glob
 import json
 import cv2
-import numpy as np
 import torch
-import argparse
-from PIL import Image
 import shutil
-
-from tqdm import tqdm
+import argparse
+import numpy as np
 import pandas as pd
+from tqdm import tqdm
+from PIL import Image
+from facenet_pytorch import MTCNN
 from torchvision.transforms import transforms
 from models import densenet121, resmasking_dropout1
-from facenet_pytorch import MTCNN
+
 
 
 def ensure_color(image):
@@ -172,7 +172,7 @@ def parse_args():
             "--face_detector",
             default="haar",
             type=str,
-            help="face detector to use: haar or nnet (faster) or mtcnn (more precise) [default=haar]",
+            help="face detector to use: haar or nnet (faster) or mtcnn (more precise) [default=mtcnn]",
     )
     parser.add_argument(
             "--scores_file",

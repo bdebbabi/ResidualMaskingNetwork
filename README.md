@@ -11,13 +11,32 @@ A [PyTorch](http://pytorch.org/) implementation of my thesis with the same name.
 </p>
 
 # Live Demo:
-- Model file: [download](https://drive.google.com/open?id=1_6CzlKRS9ksxlo0TjqIGXMzQE4I83tE0) (this checkpoint is trained on VEMO dataset, locate it at ```./saved/checkpoints/``` directory)
-- Download 2 files: [prototxt](https://drive.google.com/open?id=1ANVPx3JM4EcJVZOstV_kEO1Jcv74mBu5), and [res10_300x300_ssd](https://drive.google.com/open?id=1Iy_3I_mWGhBA63W0IK8tRrUuvr-WrGQ2) for face detection OpenCV. Locate at current directory or checking file path with ```ssd_infer.py``` file.
-
+- Emotion recognition [model](https://drive.google.com/open?id=1_6CzlKRS9ksxlo0TjqIGXMzQE4I83tE0) (this checkpoint is trained on VEMO dataset). Download it at ```./saved/checkpoints/``` directory after creating the folder.
+- For the face detection 3 models are available `nnet`, `haar` and `mtcnn`. They can be chosen with the `--face_detector` argument. It is advised to choose `mtcnn` for better results.
+- The `mtcnn` model can be installed with the following command:
 ```Shell
-python ssd_infer.py
+pip install facenet-pytorch
 ```
+- To use the `nnet` model download these 2 files: [prototxt](https://drive.google.com/open?id=1ANVPx3JM4EcJVZOstV_kEO1Jcv74mBu5), and [res10_300x300_ssd](https://drive.google.com/open?id=1Iy_3I_mWGhBA63W0IK8tRrUuvr-WrGQ2) in the same directory as `emotion_detector.py`.
+- The `haar` model only requires cv2 to be installed.
+- For a live demo using the computer webcam:
+```Shell
+python emotion_detector.py --use_webcam --draw_boxes --face_detector mtcnn
+```
+- For a demo on a local video:
+```Shell
+python emotion_detector.py --draw_boxes --face_detector mtcnn --video_file input_video.mp4 --output_video output_video.mp4
+```
+- For a demo on a local video with person tracking:
+```Shell
+python emotion_detector.py --draw_boxes --face_detector mtcnn --video_file input_video.mp4 --output_video output_video.mp4 --track_boxes --output_foler tracking_results --scores_file scores.csv
+```
+The ```scores.csv``` file can be obtained by running the [SlowFast](https://github.com/bdebbabi/SlowFast) model with tracking. It contains the bounding boxes of the persons with their ids.
 
+For a complete list of the available arguments run the following command:
+```Shell
+python emotion_detector.py --help
+```
 
 <p align="center">
 <img width=500 src= "https://user-images.githubusercontent.com/24642166/72135777-da244d80-33b9-11ea-90ee-706b25c0a5a9.png"/>
